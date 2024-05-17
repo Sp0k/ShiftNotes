@@ -1,28 +1,23 @@
-import { SafeAreaView, Text, Button } from "react-native";
-import tw, { useDeviceContext } from "twrnc";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Provider } from "react-redux";
 import { store } from "./store";
 import "react-native-reanimated";
 
-const CustomText = ({ title, color }) => {
-  return <Text style={tw`text-${color}-800 text-4xl`}>{title}</Text>;
-};
+import HomeScreen from "./screens/HomeScreen";
+import NoteScreen from "./screens/NoteScreen";
 
 function App() {
-  useDeviceContext(tw);
+  const Stack = createNativeStackNavigator();
 
   return (
     <Provider store={store}>
-      <SafeAreaView>
-        <Text style={tw`w-screen mt-40 text-center text-xl`}>Shift Notes</Text>
-        <Button
-          title={"Click me!"}
-          onPress={() => {
-            console.log("Pressed!");
-          }}
-        />
-        <CustomText title={"Hello, World!"} color={"red"} />
-      </SafeAreaView>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Note" component={NoteScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </Provider>
   );
 }
