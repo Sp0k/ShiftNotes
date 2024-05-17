@@ -39,4 +39,4 @@ This will start the server and give you a QR code you can scan with your phone i
 Sadly, contributions are __not__ welcomed on this repository because it is a course project for a certification. Please feel free to clone my project and modify for yourself, but do keep in mind that I cannot accept your contribution.
 
 ## License
-I don't think the project has any license as it is a fork as well as a course project. I am not sure how much of my code could be reused in this situation without causing problems.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
