@@ -18,13 +18,16 @@ function App() {
         <Stack.Navigator
           initialRouteName="Home"
           screenOptions={{
-            title: "Your notes",
-            headerStyle: { backgroundColor: "#1E2033" },
+            headerStyle: { backgroundColor: "#030712" },
             headerTintColor: "white",
-            contentStyle: { backgroundColor: "#7277A0" },
+            contentStyle: { backgroundColor: "#111827" },
           }}
         >
-          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{ title: "Notes" }}
+          />
           <Stack.Screen name="Note" component={NoteScreen} />
         </Stack.Navigator>
       </NavigationContainer>

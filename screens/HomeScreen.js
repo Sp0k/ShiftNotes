@@ -1,5 +1,5 @@
 import { Text, View, TouchableOpacity } from "react-native";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useLayoutEffect } from "react";
 import MasonryList from "@react-native-seoul/masonry-list";
 import tw, { useDeviceContext } from "twrnc";
 
@@ -22,7 +22,7 @@ function HomeScreen({ navigation }) {
     <TouchableOpacity onPress={onPressHandler}>
       <Text
         style={[
-          tw`bg-gray-300 text-gray-900 m-1`,
+          tw`bg-gray-800 text-white m-1`,
           { height: Math.floor(Math.random() * 100) + 50 },
         ]}
       >
@@ -31,10 +31,24 @@ function HomeScreen({ navigation }) {
     </TouchableOpacity>
   );
 
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerSearchBarOptions: {
+        barTintColor: "#1f2937",
+        textColor: "white",
+        hideWhenScrolling: false,
+        inputType: "text",
+        tintColor: "white",
+        hintTextColor: "white",
+        placeholder: "Search",
+      },
+    });
+  }, [navigation]);
+
   return (
     <View style={{ flex: 1 }}>
       <MasonryList
-        style={tw`w-full h-screen mb-100`}
+        style={tw`w-full h-screen mt-38 mb-100`}
         data={data}
         keyExtractor={(item) => item.id}
         numColums={3}
