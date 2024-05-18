@@ -22,7 +22,7 @@ function HomeScreen({ navigation }) {
     <TouchableOpacity onPress={onPressHandler}>
       <Text
         style={[
-          tw`bg-blue-200 text-gray-500 m-1`,
+          tw`bg-gray-300 text-gray-900 m-1`,
           { height: Math.floor(Math.random() * 100) + 50 },
         ]}
       >
@@ -34,7 +34,7 @@ function HomeScreen({ navigation }) {
   return (
     <View style={{ flex: 1 }}>
       <MasonryList
-        style={tw`w-full h-screen`}
+        style={tw`w-full h-screen mb-100`}
         data={data}
         keyExtractor={(item) => item.id}
         numColums={3}
