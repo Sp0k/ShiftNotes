@@ -5,8 +5,8 @@ import { Provider } from "react-redux";
 import { store } from "./store";
 import "react-native-reanimated";
 
-import HomeScreen from "./screens/HomeScreen";
-import NoteScreen from "./screens/NoteScreen";
+import HomeScreen from "./assets/screens/HomeScreen";
+import NoteScreen from "./assets/screens/NoteScreen";
 
 function App() {
   const Stack = createNativeStackNavigator();
@@ -28,7 +28,11 @@ function App() {
             component={HomeScreen}
             options={{ title: "Notes" }}
           />
-          <Stack.Screen name="Note" component={NoteScreen} />
+          <Stack.Screen
+            name="Note"
+            component={NoteScreen}
+            options={{ headerTitle: "" }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
