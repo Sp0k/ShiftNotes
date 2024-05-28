@@ -42,9 +42,7 @@ function App() {
             component={NoteScreen}
             options={{
               headerTitle: "",
-              headerRight: () => (
-                <Button title="Delete" onPress={deleteHandler} />
-              ),
+              headerRight: () => <Button title="🗑️" onPress={deleteHandler} />,
             }}
           />
         </Stack.Navigator>
