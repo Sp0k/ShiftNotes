@@ -2,7 +2,7 @@ import { Text, View } from "react-native";
 import { useEffect } from "react";
 import tw, { useDeviceContext } from "twrnc";
 
-function HomeScreen({ navigation }) {
+function NoteScreen({ route }) {
   useDeviceContext(tw);
 
   useEffect(() => {
@@ -22,4 +22,4 @@ function HomeScreen({ navigation }) {
   );
 }
 
-export default HomeScreen;
+export default NoteScreen;
