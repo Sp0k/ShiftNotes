@@ -10,12 +10,10 @@ import HomeScreen from "./assets/screens/HomeScreen";
 import NoteScreen from "./assets/screens/NoteScreen";
 import Header from "./assets/components/Header";
 
+const xApp = () => {};
+
 function App() {
   const Stack = createNativeStackNavigator();
-
-  const deleteHandler = () => {
-    console.log("Delete");
-  };
 
   return (
     <Provider store={store}>
@@ -37,14 +35,7 @@ function App() {
               header: () => <Header />,
             }}
           />
-          <Stack.Screen
-            name="Note"
-            component={NoteScreen}
-            options={{
-              headerTitle: "",
-              headerRight: () => <Button title="🗑️" onPress={deleteHandler} />,
-            }}
-          />
+          <Stack.Screen name="Note" component={NoteScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
