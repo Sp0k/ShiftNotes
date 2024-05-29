@@ -6,11 +6,17 @@ import { useSearchNotesQuery, useAddNoteMutation } from "../../db";
 
 import Card from "../components/Card";
 import AddButton from "../components/AddButton";
+import Header from "../components/Header";
 
 function HomeScreen({ navigation }) {
   const { data: searchData, error, isLoading } = useSearchNotesQuery("");
   const [addNote, { data: addNoteData, error: addNoteError }] =
     useAddNoteMutation();
+
+  navigation.setOptions({
+    headerTitle: () => <Header />,
+    title: "Notes",
+  });
 
   useEffect(() => {
     if (addNoteData != undefined) {

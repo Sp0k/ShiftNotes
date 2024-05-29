@@ -8,9 +8,6 @@ import tw from "twrnc";
 
 import HomeScreen from "./assets/screens/HomeScreen";
 import NoteScreen from "./assets/screens/NoteScreen";
-import Header from "./assets/components/Header";
-
-const xApp = () => {};
 
 function App() {
   const Stack = createNativeStackNavigator();
@@ -27,14 +24,7 @@ function App() {
             contentStyle: tw`bg-gray-900`,
           }}
         >
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{
-              title: "Notes",
-              header: () => <Header />,
-            }}
-          />
+          <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Note" component={NoteScreen} />
         </Stack.Navigator>
       </NavigationContainer>
