@@ -1,6 +1,8 @@
 # Shift Notes
 __*Shift Notes*__ is a note taking app built for ShiftKey Lab's React Native certification. This repository is a fork of ShiftKey's starter project fort he course. The app will allow users to write notes, save them, modify them and delete them. I also want to add a sharing feature so users can export their note and send it to their contacts and share their thoughts, gift ideas or grocery list.
 
+You can test the application on expo using this [link](https://snack.expo.dev/?platform=web).
+
 ## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
