@@ -15,6 +15,7 @@ const Header = ({ searchInput, setSearchInput }) => {
           setSearchInput(text);
           console.log(text);
         }}
+        keyboardAppearance={"dark"}
       />
     </SafeAreaView>
   );
