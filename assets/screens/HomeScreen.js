@@ -1,4 +1,4 @@
-import { TouchableOpacity, SafeAreaView } from "react-native";
+import { TouchableOpacity, SafeAreaView, Text, TextInput } from "react-native";
 import { useEffect, useState, useLayoutEffect } from "react";
 import MasonryList from "@react-native-seoul/masonry-list";
 import tw from "twrnc";
@@ -9,9 +9,27 @@ import AddButton from "../components/AddButton";
 import Header from "../components/Header";
 
 function HomeScreen({ navigation }) {
-  const { data: searchData, error, isLoading } = useSearchNotesQuery("");
   const [addNote, { data: addNoteData, error: addNoteError }] =
     useAddNoteMutation();
+  const addNoteHandler = () => {
+    addNote({ title: "", content: "" });
+    console.log("New Note");
+  };
+  const cardOnPressHandler = () => {
+    navigation.navigate("Note");
+  };
+  const renderItem = ({ item }) => (
+    <Card
+      item={item}
+      onPress={() => navigation.navigate("Note", { data: item })}
+    />
+  );
+  const [searchInput, setSearchInput] = useState("");
+  const {
+    data: searchData,
+    error,
+    isLoading,
+  } = useSearchNotesQuery(searchInput);
 
   useEffect(() => {
     if (addNoteData != undefined) {
@@ -20,25 +38,11 @@ function HomeScreen({ navigation }) {
     }
   }, [addNoteData]);
 
-  const addNoteHandler = () => {
-    addNote({ title: "", content: "" });
-    console.log("New Note");
-  };
-
-  const cardOnPressHandler = () => {
-    navigation.navigate("Note");
-  };
-
-  const renderItem = ({ item }) => (
-    <Card
-      item={item}
-      onPress={() => navigation.navigate("Note", { data: item })}
-    />
-  );
-
   useLayoutEffect(() => {
     navigation.setOptions({
-      header: () => <Header />,
+      header: () => (
+        <Header searchInput={searchInput} setSearchInput={setSearchInput} />
+      ),
       headerTitle: "Notes",
     });
   }, []);
