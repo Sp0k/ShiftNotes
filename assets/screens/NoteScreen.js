@@ -12,6 +12,9 @@ function NoteScreen({ route, navigation }) {
   const [content, setContent] = useState(data.content);
   const [deleteNote] = useDeleteNoteMutation();
 
+  let emptyContent = !content ? true : false;
+  let emptyTitle = !title ? true : false;
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: "",
@@ -27,6 +30,19 @@ function NoteScreen({ route, navigation }) {
     });
   }, []);
 
+  useEffect(() => {
+    return () => {
+      if (emptyContent) {
+        console.log("No content");
+
+        if (emptyTitle) {
+          console.log("No title");
+          deleteNote(route.params.data);
+        }
+      }
+    };
+  }, []);
+
   return (
     <SafeAreaView style={tw`mx-2`}>
       <TextInput
@@ -35,7 +51,10 @@ function NoteScreen({ route, navigation }) {
         placeholderTextColor={"grey"}
         onChangeText={(text) => {
           setTitle(text);
+          emptyTitle = !text ? true : false;
           updateNote({ id: data.id, title: text, content: content });
+          console.log("Title: " + text);
+          console.log(emptyTitle);
         }}
         defaultValue={data.title}
       />
@@ -48,7 +67,10 @@ function NoteScreen({ route, navigation }) {
         defaultValue={data.content}
         onChangeText={(text) => {
           setContent(text);
+          emptyContent = !text ? true : false;
           updateNote({ id: data.id, title: title, content: text });
+          console.log("Content: " + text);
+          console.log(emptyContent);
         }}
         defaultValue={data.content}
       />
