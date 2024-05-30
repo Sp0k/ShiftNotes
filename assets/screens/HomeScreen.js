@@ -1,11 +1,12 @@
-import { Text, TouchableOpacity, SafeAreaView } from "react-native";
-import { useEffect, useState } from "react";
+import { TouchableOpacity, SafeAreaView } from "react-native";
+import { useEffect, useState, useLayoutEffect } from "react";
 import MasonryList from "@react-native-seoul/masonry-list";
 import tw from "twrnc";
 import { useSearchNotesQuery, useAddNoteMutation } from "../../db";
 
 import Card from "../components/Card";
 import AddButton from "../components/AddButton";
+import Header from "../components/Header";
 
 function HomeScreen({ navigation }) {
   const { data: searchData, error, isLoading } = useSearchNotesQuery("");
@@ -34,6 +35,13 @@ function HomeScreen({ navigation }) {
       onPress={() => navigation.navigate("Note", { data: item })}
     />
   );
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      header: () => <Header />,
+      headerTitle: "Notes",
+    });
+  }, []);
 
   return (
     <SafeAreaView style={tw`w-full h-full`}>

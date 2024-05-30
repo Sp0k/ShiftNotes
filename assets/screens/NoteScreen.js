@@ -1,5 +1,5 @@
 import { TextInput, SafeAreaView, Button } from "react-native";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import tw, { useDeviceContext } from "twrnc";
 import { useUpdateNoteMutation, useDeleteNoteMutation } from "../../db.js";
 
@@ -12,18 +12,20 @@ function NoteScreen({ route, navigation }) {
   const [content, setContent] = useState(data.content);
   const [deleteNote] = useDeleteNoteMutation();
 
-  navigation.setOptions({
-    headerTitle: "",
-    headerRight: () => (
-      <Button
-        title="🗑️"
-        onPress={() => {
-          deleteNote(route.params.data);
-          navigation.navigate("Home");
-        }}
-      />
-    ),
-  });
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: "",
+      headerRight: () => (
+        <Button
+          title="🗑️"
+          onPress={() => {
+            deleteNote(route.params.data);
+            navigation.navigate("Home");
+          }}
+        />
+      ),
+    });
+  }, []);
 
   return (
     <SafeAreaView style={tw`mx-2`}>
