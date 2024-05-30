@@ -17,7 +17,6 @@ function App() {
       <StatusBar />
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Home"
           screenOptions={{
             headerStyle: tw`bg-gray-900`,
             headerTintColor: "white",
