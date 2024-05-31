@@ -79,10 +79,10 @@ function NoteScreen({ route, navigation }) {
           setTitle(text);
           emptyTitle = !text ? true : false;
           updateNote({ id: data.id, title: text, content: content });
-          console.log(emptyTitle);
         }}
         defaultValue={data.title}
         keyboardAppearance={"dark"}
+        keyboardDismissMode={"on-drag"}
       />
       <ScrollView
         style={tw`flex mb-20`}
@@ -108,13 +108,13 @@ function NoteScreen({ route, navigation }) {
             setContent(text);
             emptyContent = !text ? true : false;
             updateNote({ id: data.id, title: title, content: text });
-            console.log(emptyContent);
           }}
           defaultValue={data.content}
           keyboardAppearance={"dark"}
           onSelectionChange={(event) =>
             setCursorPosition(event.nativeEvent.selection)
           }
+          keyboardDismissMode={"on-drag"}
         />
       </ScrollView>
     </KeyboardAvoidingView>

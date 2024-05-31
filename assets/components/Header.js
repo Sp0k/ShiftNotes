@@ -13,10 +13,10 @@ const Header = ({ searchInput, setSearchInput }) => {
         placeholderTextColor={"white"}
         onChangeText={(text) => {
           setSearchInput(text);
-          console.log(text);
         }}
         keyboardAppearance={"dark"}
         keyboardDismissMode={"on-drag"}
+        clearButtonMode="while-editing"
       />
     </SafeAreaView>
   );
