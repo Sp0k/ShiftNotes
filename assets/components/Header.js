@@ -16,6 +16,7 @@ const Header = ({ searchInput, setSearchInput }) => {
           console.log(text);
         }}
         keyboardAppearance={"dark"}
+        keyboardDismissMode={"on-drag"}
       />
     </SafeAreaView>
   );

@@ -33,7 +33,6 @@ function HomeScreen({ navigation }) {
 
   useEffect(() => {
     if (addNoteData != undefined) {
-      console.log(addNoteData.title);
       navigation.navigate("Note", { data: addNoteData });
     }
   }, [addNoteData]);

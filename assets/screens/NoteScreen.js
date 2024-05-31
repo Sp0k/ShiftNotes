@@ -4,6 +4,7 @@ import {
   Button,
   KeyboardAvoidingView,
   ScrollView,
+  Alert,
 } from "react-native";
 import { useState, useEffect, useLayoutEffect } from "react";
 import tw, { useDeviceContext } from "twrnc";
@@ -17,6 +18,29 @@ function NoteScreen({ route, navigation }) {
   const [title, setTitle] = useState(data.title);
   const [content, setContent] = useState(data.content);
   const [deleteNote] = useDeleteNoteMutation();
+  const [cursorPosition, setCursorPosition] = useState({ end: 0, start: 0 });
+
+  const deleteHandler = () => {
+    Alert.alert(
+      "Delete your note?",
+      "You are about to delete this note. You will not be able to recover it later. Do you wish to continue?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Canceled"),
+          style: "cancel",
+        },
+        {
+          text: "Delete",
+          onPress: () => {
+            deleteNote(route.params.data);
+            navigation.navigate("Home");
+          },
+          style: "destructive",
+        },
+      ],
+    );
+  };
 
   let emptyContent = !content ? true : false;
   let emptyTitle = !title ? true : false;
@@ -24,15 +48,7 @@ function NoteScreen({ route, navigation }) {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: "",
-      headerRight: () => (
-        <Button
-          title="🗑️"
-          onPress={() => {
-            deleteNote(route.params.data);
-            navigation.navigate("Home");
-          }}
-        />
-      ),
+      headerRight: () => <Button title="🗑️" onPress={deleteHandler} />,
     });
   }, []);
 
@@ -55,29 +71,32 @@ function NoteScreen({ route, navigation }) {
       behavior="padding"
       enabled={true}
     >
+      <TextInput
+        style={tw`text-xl mb-2 mt-1 text-white border-b-2 border-gray-700 pb-1`}
+        placeholder="Title"
+        placeholderTextColor={"grey"}
+        onChangeText={(text) => {
+          setTitle(text);
+          emptyTitle = !text ? true : false;
+          updateNote({ id: data.id, title: text, content: content });
+          console.log(emptyTitle);
+        }}
+        defaultValue={data.title}
+        keyboardAppearance={"dark"}
+      />
       <ScrollView
-        style={tw`flex mb-7`}
+        style={tw`flex mb-20`}
         ref={(ref) => {
           this.scrollView = ref;
         }}
-        onContentSizeChange={() =>
-          this.scrollView.scrollToEnd({ animated: true })
+        onContentSizeChange={(x, y) =>
+          this.scrollView.scrollTo({
+            y: cursorPosition.end + 50,
+            animated: true,
+          })
         }
+        indicatorStyle={"white"}
       >
-        <TextInput
-          style={tw`text-xl mb-2 mt-1 text-white border-b-2 border-gray-700 pb-1`}
-          placeholder="Title"
-          placeholderTextColor={"grey"}
-          onChangeText={(text) => {
-            setTitle(text);
-            emptyTitle = !text ? true : false;
-            updateNote({ id: data.id, title: text, content: content });
-            console.log("Title: " + text);
-            console.log(emptyTitle);
-          }}
-          defaultValue={data.title}
-          keyboardAppearance={"dark"}
-        />
         <TextInput
           style={tw`text-xl text-white`}
           placeholder="Note"
@@ -89,11 +108,13 @@ function NoteScreen({ route, navigation }) {
             setContent(text);
             emptyContent = !text ? true : false;
             updateNote({ id: data.id, title: title, content: text });
-            console.log("Content: " + text);
             console.log(emptyContent);
           }}
           defaultValue={data.content}
           keyboardAppearance={"dark"}
+          onSelectionChange={(event) =>
+            setCursorPosition(event.nativeEvent.selection)
+          }
         />
       </ScrollView>
     </KeyboardAvoidingView>
