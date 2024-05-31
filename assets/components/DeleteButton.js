@@ -1,9 +1,34 @@
-import { TouchableOpacity, Text } from "react-native";
+import { TouchableOpacity, Text, Alert } from "react-native";
 import tw from "twrnc";
+import { useDeleteNoteMutation } from "../../db";
 
-function DeleteButton({ onPress }) {
+function DeleteButton({ data, navigation }) {
+  const [deleteNote] = useDeleteNoteMutation();
+
+  const deleteHandler = () => {
+    Alert.alert(
+      "Delete your note?",
+      "You are about to delete this note. You will not be able to recover it later. Do you wish to continue?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Canceled"),
+          style: "cancel",
+        },
+        {
+          text: "Delete",
+          onPress: () => {
+            deleteNote(data);
+            navigation.navigate("Home");
+          },
+          style: "destructive",
+        },
+      ],
+    );
+  };
+
   return (
-    <TouchableOpacity onPress={onPress} style={tw`mr-2 mt-1`}>
+    <TouchableOpacity onPress={deleteHandler} style={tw`mr-2 mt-1`}>
       <Text>🗑️</Text>
     </TouchableOpacity>
   );

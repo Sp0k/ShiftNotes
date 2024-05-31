@@ -24,28 +24,6 @@ function NoteScreen({ route, navigation }) {
   const [deleteNote] = useDeleteNoteMutation();
   const [cursorPosition, setCursorPosition] = useState({ end: 0, start: 0 });
 
-  const deleteHandler = () => {
-    Alert.alert(
-      "Delete your note?",
-      "You are about to delete this note. You will not be able to recover it later. Do you wish to continue?",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Canceled"),
-          style: "cancel",
-        },
-        {
-          text: "Delete",
-          onPress: () => {
-            deleteNote(route.params.data);
-            navigation.navigate("Home");
-          },
-          style: "destructive",
-        },
-      ],
-    );
-  };
-
   const twStyle_title =
     Platform.OS === "ios"
       ? tw`text-xl mb-2 mt-1 text-white border-b-2 border-gray-700 pb-1`
@@ -57,7 +35,9 @@ function NoteScreen({ route, navigation }) {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: "",
-      headerRight: () => <DeleteButton onPress={deleteHandler} />,
+      headerRight: () => (
+        <DeleteButton data={route.params.data} navigation={navigation} />
+      ),
     });
   }, []);
 
