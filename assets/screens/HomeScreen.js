@@ -1,4 +1,10 @@
-import { TouchableOpacity, SafeAreaView, Text, TextInput } from "react-native";
+import {
+  TouchableOpacity,
+  SafeAreaView,
+  Text,
+  TextInput,
+  Platform,
+} from "react-native";
 import { useEffect, useState, useLayoutEffect } from "react";
 import MasonryList from "@react-native-seoul/masonry-list";
 import tw from "twrnc";
@@ -30,6 +36,10 @@ function HomeScreen({ navigation }) {
     error,
     isLoading,
   } = useSearchNotesQuery(searchInput);
+  const twStyle_list =
+    Platform.OS === "ios"
+      ? tw`px-0.5 pt-0.5 pb-20`
+      : tw`w-[95%] pt-0.5 pb-20 mx-auto`;
 
   useEffect(() => {
     if (addNoteData != undefined) {
@@ -50,7 +60,7 @@ function HomeScreen({ navigation }) {
     <SafeAreaView style={tw`w-full h-full`}>
       {searchData ? (
         <MasonryList
-          style={tw`px-0.5 pt-0.5 pb-20`}
+          style={twStyle_list}
           data={searchData}
           numColumns={2}
           renderItem={renderItem}

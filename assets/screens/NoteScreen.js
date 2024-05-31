@@ -1,10 +1,12 @@
 import {
   TextInput,
   SafeAreaView,
-  Button,
+  TouchableOpacity,
   KeyboardAvoidingView,
   ScrollView,
   Alert,
+  Text,
+  Platform,
 } from "react-native";
 import { useState, useEffect, useLayoutEffect } from "react";
 import tw, { useDeviceContext } from "twrnc";
@@ -42,13 +44,22 @@ function NoteScreen({ route, navigation }) {
     );
   };
 
+  const twStyle_title =
+    Platform.OS === "ios"
+      ? tw`text-xl mb-2 mt-1 text-white border-b-2 border-gray-700 pb-1`
+      : tw`text-xl mt-1 text-white border-b-2 border-gray-700 pb-1`;
+
   let emptyContent = !content ? true : false;
   let emptyTitle = !title ? true : false;
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: "",
-      headerRight: () => <Button title="🗑️" onPress={deleteHandler} />,
+      headerRight: () => (
+        <TouchableOpacity onPress={deleteHandler} style={tw`mr-2 mt-1`}>
+          <Text>🗑️</Text>
+        </TouchableOpacity>
+      ),
     });
   }, []);
 
@@ -72,7 +83,7 @@ function NoteScreen({ route, navigation }) {
       enabled={true}
     >
       <TextInput
-        style={tw`text-xl mb-2 mt-1 text-white border-b-2 border-gray-700 pb-1`}
+        style={twStyle_title}
         placeholder="Title"
         placeholderTextColor={"grey"}
         onChangeText={(text) => {
