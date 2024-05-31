@@ -10,7 +10,9 @@ import {
 } from "react-native";
 import { useState, useEffect, useLayoutEffect } from "react";
 import tw, { useDeviceContext } from "twrnc";
-import { useUpdateNoteMutation, useDeleteNoteMutation } from "../../db.js";
+import { useUpdateNoteMutation, useDeleteNoteMutation } from "../../db";
+
+import DeleteButton from "../components/DeleteButton";
 
 function NoteScreen({ route, navigation }) {
   useDeviceContext(tw);
@@ -55,11 +57,7 @@ function NoteScreen({ route, navigation }) {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: "",
-      headerRight: () => (
-        <TouchableOpacity onPress={deleteHandler} style={tw`mr-2 mt-1`}>
-          <Text>🗑️</Text>
-        </TouchableOpacity>
-      ),
+      headerRight: () => <DeleteButton onPress={deleteHandler} />,
     });
   }, []);
 
