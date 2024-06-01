@@ -1,6 +1,6 @@
 import {
   TextInput,
-  SafeAreaView,
+  View,
   TouchableOpacity,
   KeyboardAvoidingView,
   ScrollView,
@@ -13,6 +13,7 @@ import tw, { useDeviceContext } from "twrnc";
 import { useUpdateNoteMutation, useDeleteNoteMutation } from "../../db";
 
 import DeleteButton from "../components/DeleteButton";
+import ShareButton from "../components/ShareButton";
 
 function NoteScreen({ route, navigation }) {
   useDeviceContext(tw);
@@ -36,20 +37,18 @@ function NoteScreen({ route, navigation }) {
     navigation.setOptions({
       headerTitle: "",
       headerRight: () => (
-        <DeleteButton data={route.params.data} navigation={navigation} />
+        <View style={[{ flexDirection: "row" }, tw`mr-4 mt-1`]}>
+          <ShareButton title={title} content={content} />
+          <DeleteButton data={route.params.data} navigation={navigation} />
+        </View>
       ),
     });
-  }, []);
+  }, [title, content]);
 
   useEffect(() => {
     return () => {
-      if (emptyContent) {
-        console.log("No content");
-
-        if (emptyTitle) {
-          console.log("No title");
-          deleteNote(route.params.data);
-        }
+      if (emptyContent && emptyTitle) {
+        deleteNote(route.params.data);
       }
     };
   }, []);

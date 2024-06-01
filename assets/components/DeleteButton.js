@@ -28,7 +28,7 @@ function DeleteButton({ data, navigation }) {
   };
 
   return (
-    <TouchableOpacity onPress={deleteHandler} style={tw`mr-2 mt-1`}>
+    <TouchableOpacity onPress={deleteHandler} style={tw`ml-3`}>
       <Text>🗑️</Text>
     </TouchableOpacity>
   );
