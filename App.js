@@ -1,3 +1,4 @@
+// External imports
 import { StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -6,12 +7,14 @@ import { store } from "./store";
 import "react-native-reanimated";
 import tw from "twrnc";
 
+// Internal inports
 import HomeScreen from "./assets/screens/HomeScreen";
 import NoteScreen from "./assets/screens/NoteScreen";
 
 function App() {
   const Stack = createNativeStackNavigator();
 
+  // The app's navigation
   return (
     <Provider store={store}>
       <StatusBar />

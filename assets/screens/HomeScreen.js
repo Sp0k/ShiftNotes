@@ -1,3 +1,4 @@
+// External Imports
 import {
   TouchableOpacity,
   SafeAreaView,
@@ -10,17 +11,12 @@ import MasonryList from "@react-native-seoul/masonry-list";
 import tw from "twrnc";
 import { useSearchNotesQuery, useAddNoteMutation } from "../../db";
 
+// Internal Imports
 import Card from "../components/Card";
 import AddButton from "../components/AddButton";
 import Header from "../components/Header";
 
 function HomeScreen({ navigation }) {
-  const [addNote, { data: addNoteData, error: addNoteError }] =
-    useAddNoteMutation();
-  const addNoteHandler = () => {
-    addNote({ title: "", content: "" });
-    console.log("New Note");
-  };
   const cardOnPressHandler = () => {
     navigation.navigate("Note");
   };
@@ -36,16 +32,11 @@ function HomeScreen({ navigation }) {
     error,
     isLoading,
   } = useSearchNotesQuery(searchInput);
+
   const twStyle_list =
     Platform.OS === "ios"
       ? tw`px-0.5 pt-0.5 pb-20`
       : tw`w-[95%] pt-0.5 pb-20 mx-auto`;
-
-  useEffect(() => {
-    if (addNoteData != undefined) {
-      navigation.navigate("Note", { data: addNoteData });
-    }
-  }, [addNoteData]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -70,7 +61,7 @@ function HomeScreen({ navigation }) {
       ) : (
         <></>
       )}
-      <AddButton onPress={addNoteHandler} />
+      <AddButton navigation={navigation} />
     </SafeAreaView>
   );
 }

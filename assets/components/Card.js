@@ -1,11 +1,16 @@
+// External imports
 import { Text, TouchableOpacity, View } from "react-native";
 import tw from "twrnc";
-import { useDeleteNoteMutation } from "../../db";
 
+/* Card Component
+ * The component is a blue-ish rectangle that will display the title as
+ * well as a part of the note's content so the user can easily see them
+ *
+ * @params: onPress: A function holding the function to call through
+ *                   the onPress prop
+ * @return: returns the custom card component
+ */
 function Card({ onPress, item }) {
-  const [deleteNote] = useDeleteNoteMutation();
-  const deleteHandler = () => deleteNote(item);
-
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={tw`bg-gray-800 m-1 flex rounded-md overflow-hidden`}>
