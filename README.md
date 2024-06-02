@@ -6,6 +6,7 @@ You can test the application on expo using this [link](https://snack.expo.dev/@s
 ## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
+- [Features](#features)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -36,6 +37,20 @@ Like stated before, the project uses **Expo** instead of metro, so you will need
 npm run start
 ```
 This will start the server and give you a QR code you can scan with your phone if you want to open the app on your phone using the *Expo Go* app. The server can also be opened on simulators on your computer and on the web.
+
+## Features
+Shift Notes has a few features that were interesting to play with. First, the class requirements for the certification were:
+
+- Home screen displaying all of the notes using a MasonryList
+- Search bar that reduces the amount of notes displayed on the home screen based on the user input
+- Note editing screen that lets users type a title and content in the note
+- Delete button to get rid of notes
+
+I also was expected to add my own features to the app, so I added a:
+
+- Prompt before going through on the deletion of notes to confirm the action
+- Share button on the note editing screen
+- Auto-scrolling on the editing screen to follow the position of the cursor (only tested on IOS)
 
 ## Contributing
 Sadly, contributions are __not__ welcomed on this repository because it is a course project for a certification. Please feel free to clone my project and modify for yourself, but do keep in mind that I cannot accept your contribution.
